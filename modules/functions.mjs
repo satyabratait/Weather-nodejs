@@ -29,11 +29,13 @@ let obj = {
 
 //findlocation
 export function findLocation(locationInfo) {
+  // console.log(typeof locationInfo);
   let data = readfile(filepath,encoding);
   const result = data.find(
     (item) => item.location.name.toLowerCase() == locationInfo.toLowerCase()
   );
   console.log(result);
+  return result;
 }
 // findLocation('oslo');
 
@@ -93,10 +95,14 @@ export function deleteLocation(locationInfo) {
 
 //allcities
 export function allCities() {
+    let cities=[]
   const data = readfile(filepath,encoding);
   data.forEach((element) => {
-    console.log(element.location.name);
+    // console.log(element.location.name);
+    cities.push(element.location.name)
   });
+  console.log(cities);
+  return cities
 }
 // allCities();
 
