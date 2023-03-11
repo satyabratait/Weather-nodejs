@@ -3,9 +3,9 @@ import * as weatherinfo from "./modules/functions.mjs";
 
 
 // weatherinfo.addLocation("bengaluru", "karnataka", "India", 32, 92, 22, 100, "Cloudy");
-weatherinfo.findLocation('new york')
+// weatherinfo.findLocation('new york')
 // weatherinfo.deleteLocation('kolkata');
-// weatherinfo.allCities();
+weatherinfo.allCities();
 
 
 
