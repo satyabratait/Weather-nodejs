@@ -25,16 +25,25 @@ http.createServer( function (req, res) {
     // let data = weatherdata.readfile();
    try{
     res.setHeader('Access-Control-Allow-Origin','*')
+
     let q = url.parse(req.url, true);
-    let place = q.query.place;
+    let path = q.pathname
     // console.log(typeof q.query.place);
+    
+   if(path==="/get"){
+    let place = q.query.place;
+
     if (place!=undefined) {
        
-        const result = weatherdata.findLocation(place);
-        // console.log(typeof result);
-        res.write(JSON.stringify(result));
-        res.end()
-    }
+      const result = weatherdata.findLocation(place);
+      // console.log(typeof result);
+      res.write(JSON.stringify(result));
+      res.end()
+  }
+   }
+   if(path=="/cities"){
+    res.end(JSON.stringify(weatherdata.allCities()))
+   }
    }
    catch(err){
     console.log(err);
@@ -49,6 +58,7 @@ http.createServer( function (req, res) {
     // }
 
     // res.write("hello world");
+    // res.end();
     // res.setHeader('Content-type','text/plain');
   })
   .listen(5050);

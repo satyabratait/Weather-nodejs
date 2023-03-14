@@ -4,10 +4,13 @@ import path from "path";
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
+// console.log(__filename);
 
 const __dirname = path.dirname(__filename);
+// console.log(__dirname);
 
-let filepath = "./database.txt",encoding ="utf8";
+// let filepath = "./weather-app/modules/database.txt",
+let filepath = "./database.txt", encoding ="utf8";
 
 let obj = {
   id: 17,
