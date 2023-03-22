@@ -10,9 +10,9 @@ const rl = readline.createInterface({
 
 const __fileName = fileURLToPath(import.meta.url);
 
-const __dirname = path.dirname(__fileName);
+const __dirName = path.dirname(__fileName);
 
-let homePath = __dirname;
+let homePath = __dirName;
 let pathValue;
 
 function menu() {
@@ -33,27 +33,27 @@ function work(ch) {
   ch = parseInt(ch);
   switch (ch) {
     case 1:
-      createfolder();
+      createFolder();
       break;
 
     case 2:
-      createfile();
+      createFile();
       break;
 
     case 3:
-      deletefolder();
+      deleteFolder();
       break;
 
     case 4:
-      deletefile();
+      deleteFile();
       break;
 
     case 5:
-      readfolder();
+      readFolder();
       break;
 
     case 6:
-      renamefolder();
+      renameFolder();
       break;
 
     case 7:
@@ -66,11 +66,10 @@ function work(ch) {
   }
 }
 
-function createfolder() {
+function createFolder() {
   rl.question("Enter the homePath\n", function (input) {
     if (input !== undefined && input.length > 0) {
       rl.question("Enter the folderName\n", function (folderName) {
-        console.log(path.join(input, folderName));
         homePath = input;
         pathValue = path.join(input, folderName);
         try {
@@ -99,7 +98,7 @@ function createfolder() {
   });
 }
 
-function createfile() {
+function createFile() {
   rl.question("Enter the homePath\n", function (input) {
     if (input !== undefined && input.length > 0) {
       homePath = input;
@@ -134,14 +133,13 @@ function createfile() {
   });
 }
 
-function deletefolder() {
+function deleteFolder() {
   rl.question("Enter the homePath\n", function (input) {
     console.log(input.length);
     if (input !== undefined && input.length > 0) {
       homePath = input;
       rl.question("Enter the folderName\n", function (folderName) {
         pathValue = path.join(input, folderName);
-        console.log(pathValue, "path");
         try {
           if (fs.existsSync(pathValue)) {
             fs.rm(pathValue, { recursive: true, force: true }, (err) => {
@@ -155,7 +153,6 @@ function deletefolder() {
       });
     } else {
       rl.question("Enter the folderName\n", function (folderName) {
-        console.log(homePath, "empty");
         pathValue = path.join(homePath, folderName);
         try {
           if (fs.existsSync(pathValue)) {
@@ -172,11 +169,11 @@ function deletefolder() {
   });
 }
 
-function deletefile() {
+function deleteFile() {
   rl.question("Enter the homePath\n", function (input) {
     if (input !== undefined && input.length > 0) {
       homePath = input;
-      rl.question("Enter the fileName\n", function (fileName) {
+      rl.question("Enter the fileName with extension\n", function (fileName) {
         pathValue = path.join(input, fileName);
         try {
           if (fs.existsSync(pathValue)) {
@@ -188,7 +185,7 @@ function deletefile() {
         menu();
       });
     } else {
-      rl.question("Enter the fileName\n", function (fileName) {
+      rl.question("Enter the fileName with extension\n", function (fileName) {
         pathValue = path.join(input, fileName);
         try {
           if (fs.existsSync(pathValue)) {
@@ -203,7 +200,7 @@ function deletefile() {
   });
 }
 
-function readfolder() {
+function readFolder() {
   rl.question("Enter the homePath\n", function (input) {
     if (input !== undefined && input.length > 0) {
       homePath = input;
@@ -234,7 +231,7 @@ function readfolder() {
   });
 }
 
-function renamefolder() {
+function renameFolder() {
   rl.question("Enter the homePath\n", function (input) {
     if (input !== undefined && input.length > 0) {
       homePath = input;
@@ -276,18 +273,3 @@ function renamefolder() {
 (() => {
   menu();
 })();
-
-//archives
-// values = input.split(" ");
-//     homePath = values[0];
-//     folderName = values[1];
-// data = fs.openSync(homePath,content,{flag: 'a+'},"utf8");
-// console.log(1);
-//               fs.openSync(homePath,{ flag: 'a+' }, err =>{
-//                 if (err) {
-//                   console.error.log(err);
-//                 }
-//                 console.log("file opened");
-//                 fs.writeFileSync(homePath,content,()=>{});
-//               });
-//                 console.log("written success");
