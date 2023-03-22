@@ -1,6 +1,5 @@
 //weatherlocation database
 export let weatherdata =
-  // module.exports
   [
     {
       id: 1,
