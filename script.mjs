@@ -19,14 +19,8 @@ import * as weatherdata from "./weather-app/modules/functions.mjs";
 // }
 
 // readfile();
-
-http.createServer( function (req, res) {
-    // app.get('/',
-    // let data = weatherdata.readfile();
-   try{
-    res.setHeader('Access-Control-Allow-Origin','*')
-
-    let q = url.parse(req.url, true);
+function getData(req,res){
+  let q = url.parse(req.url, true);
     let path = q.pathname
     // console.log(typeof q.query.place);
     
@@ -44,6 +38,14 @@ http.createServer( function (req, res) {
    if(path=="/cities"){
     res.end(JSON.stringify(weatherdata.allCities()))
    }
+  }
+http.createServer( function (req, res) {
+    // app.get('/',
+    // let data = weatherdata.readfile();
+   try{
+    res.setHeader('Access-Control-Allow-Origin','*')
+
+    getData(req,res)
    }
    catch(err){
     console.log(err);
