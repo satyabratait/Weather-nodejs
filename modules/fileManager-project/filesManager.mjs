@@ -9,13 +9,11 @@ const rl = readline.createInterface({
 });
 
 const __fileName = fileURLToPath(import.meta.url);
-// console.log(__fileName);
 
-const __dirname = path.dirname(__fileName);
-// console.log(__dirname);
+const __dirName = path.dirname(__fileName);
 
-var pathName = __dirname;
-var pathValue;
+let homePath = __dirName;
+let pathValue;
 
 function menu() {
   console.log("Menu");
@@ -35,27 +33,27 @@ function work(ch) {
   ch = parseInt(ch);
   switch (ch) {
     case 1:
-      createfolder();
+      createFolder();
       break;
 
     case 2:
-      createfile();
+      createFile();
       break;
 
     case 3:
-      deletefolder();
+      deleteFolder();
       break;
 
     case 4:
-      deletefile();
+      deleteFile();
       break;
 
     case 5:
-      readfolder();
+      readFolder();
       break;
 
     case 6:
-      renamefolder();
+      renameFolder();
       break;
 
     case 7:
@@ -64,17 +62,15 @@ function work(ch) {
 
     default:
       console.log("Enter correct choices");
-
       break;
   }
 }
 
-function createfolder() {
-  rl.question("Enter the pathname\n", function (input) {
-    if (input != undefined && input.length > 0) {
+function createFolder() {
+  rl.question("Enter the homePath\n", function (input) {
+    if (input !== undefined && input.length > 0) {
       rl.question("Enter the folderName\n", function (folderName) {
-        console.log(path.join(input, folderName));
-        pathName = input;
+        homePath = input;
         pathValue = path.join(input, folderName);
         try {
           if (!fs.existsSync(pathValue)) {
@@ -87,7 +83,7 @@ function createfolder() {
       });
     } else {
       rl.question("Enter the folderName\n", function (folderName) {
-        pathValue = path.join(pathName, folderName);
+        pathValue = path.join(homePath, folderName);
         try {
           if (!fs.existsSync(pathValue)) {
             fs.mkdirSync(pathValue, { recursive: true }, () => {});
@@ -95,17 +91,17 @@ function createfolder() {
         } catch (err) {
           console.error(err);
         }
-        console.log(pathName);
+        console.log(homePath);
         menu();
       });
     }
   });
 }
 
-function createfile() {
-  rl.question("Enter the pathname\n", function (input) {
-    if (input != undefined && input.length > 0) {
-      pathName = input;
+function createFile() {
+  rl.question("Enter the homePath\n", function (input) {
+    if (input !== undefined && input.length > 0) {
+      homePath = input;
       rl.question("Enter the fileName\n", function (fileName) {
         pathValue = path.join(input, fileName);
         rl.question("Enter the content\n", function (content) {
@@ -121,7 +117,7 @@ function createfile() {
       });
     } else {
       rl.question("Enter the fileName\n", function (fileName) {
-        pathValue = path.join(pathName, fileName);
+        pathValue = path.join(homePath, fileName);
         rl.question("Enter the content\n", function (content) {
           try {
             if (!fs.existsSync(pathValue)) {
@@ -137,14 +133,13 @@ function createfile() {
   });
 }
 
-function deletefolder() {
-  rl.question("Enter the pathname\n", function (input) {
+function deleteFolder() {
+  rl.question("Enter the homePath\n", function (input) {
     console.log(input.length);
-    if (input != undefined && input.length > 0) {
-      pathName = input;
+    if (input !== undefined && input.length > 0) {
+      homePath = input;
       rl.question("Enter the folderName\n", function (folderName) {
         pathValue = path.join(input, folderName);
-        console.log(pathValue, "path");
         try {
           if (fs.existsSync(pathValue)) {
             fs.rm(pathValue, { recursive: true, force: true }, (err) => {
@@ -157,9 +152,8 @@ function deletefolder() {
         menu();
       });
     } else {
-      rl.question("Enter the fileName\n", function (folderName) {
-        console.log(pathName, "empty");
-        pathValue = path.join(pathName, folderName);
+      rl.question("Enter the folderName\n", function (folderName) {
+        pathValue = path.join(homePath, folderName);
         try {
           if (fs.existsSync(pathValue)) {
             fs.rm(pathValue, { recursive: true, force: true }, (err) => {
@@ -175,11 +169,11 @@ function deletefolder() {
   });
 }
 
-function deletefile() {
-  rl.question("Enter the pathname\n", function (input) {
-    if (input != undefined && input.length > 0) {
-      pathName = input;
-      rl.question("Enter the fileName\n", function (fileName) {
+function deleteFile() {
+  rl.question("Enter the homePath\n", function (input) {
+    if (input !== undefined && input.length > 0) {
+      homePath = input;
+      rl.question("Enter the fileName with extension\n", function (fileName) {
         pathValue = path.join(input, fileName);
         try {
           if (fs.existsSync(pathValue)) {
@@ -191,7 +185,7 @@ function deletefile() {
         menu();
       });
     } else {
-      rl.question("Enter the fileName\n", function (fileName) {
+      rl.question("Enter the fileName with extension\n", function (fileName) {
         pathValue = path.join(input, fileName);
         try {
           if (fs.existsSync(pathValue)) {
@@ -206,10 +200,10 @@ function deletefile() {
   });
 }
 
-function readfolder() {
-  rl.question("Enter the pathname\n", function (input) {
-    if (input != undefined && input.length > 0) {
-      pathName = input;
+function readFolder() {
+  rl.question("Enter the homePath\n", function (input) {
+    if (input !== undefined && input.length > 0) {
+      homePath = input;
       rl.question("Enter the folderName\n", function (folderName) {
         pathValue = path.join(input, folderName);
         try {
@@ -222,8 +216,8 @@ function readfolder() {
         menu();
       });
     } else {
-      rl.question("Enter the fileName\n", function (folderName) {
-        pathValue = path.join(pathName, folderName);
+      rl.question("Enter the folderName\n", function (folderName) {
+        pathValue = path.join(homePath, folderName);
         try {
           if (fs.existsSync(pathValue)) {
             console.log(fs.readdirSync(pathValue));
@@ -237,10 +231,10 @@ function readfolder() {
   });
 }
 
-function renamefolder() {
-  rl.question("Enter the pathname\n", function (input) {
-    if (input != undefined && input.length > 0) {
-      pathName = input;
+function renameFolder() {
+  rl.question("Enter the homePath\n", function (input) {
+    if (input !== undefined && input.length > 0) {
+      homePath = input;
       rl.question("Enter the folderName\n", function (folderName) {
         pathValue = path.join(input, folderName);
         rl.question("Enter the new folderName\n", function (newfolderName) {
@@ -255,14 +249,14 @@ function renamefolder() {
         });
       });
     } else {
-      rl.question("Enter the fileName\n", function (folderName) {
-        pathValue = path.join(pathName, folderName);
+      rl.question("Enter the folderName\n", function (folderName) {
+        pathValue = path.join(homePath, folderName);
         rl.question("Enter the new folderName\n", function (newfolderName) {
           try {
             if (fs.existsSync(pathValue)) {
               fs.rename(
                 pathValue,
-                path.join(pathName, newfolderName),
+                path.join(homePath, newfolderName),
                 () => {}
               );
             }
@@ -279,18 +273,3 @@ function renamefolder() {
 (() => {
   menu();
 })();
-
-//archives
-// values = input.split(" ");
-//     pathName = values[0];
-//     folderName = values[1];
-// data = fs.openSync(pathName,content,{flag: 'a+'},"utf8");
-// console.log(1);
-//               fs.openSync(pathName,{ flag: 'a+' }, err =>{
-//                 if (err) {
-//                   console.error.log(err);
-//                 }
-//                 console.log("file opened");
-//                 fs.writeFileSync(pathName,content,()=>{});
-//               });
-//                 console.log("written success");
