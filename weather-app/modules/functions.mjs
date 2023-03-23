@@ -32,14 +32,8 @@ export function findLocation(locationInfo) {
   const result = data.find(
     (item) => item.location.name.toLowerCase() === locationInfo.toLowerCase()
   );
-  if (result !== undefined) {
     console.log(result);
     return result;
-  }
-  else {
-    console.log("location not found");
-    return "";
-  }
 }
 
 //addlocation
