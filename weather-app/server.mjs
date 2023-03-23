@@ -1,6 +1,6 @@
 import http from "http";
 import url from "url";
-import * as weatherdata from "./weather-app/modules/functions.mjs";
+import * as weatherdata from "./modules/functions.mjs";
 
 // readfile();
 function getData(req, res) {
