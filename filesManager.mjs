@@ -29,9 +29,9 @@ function menu() {
   });
 }
 
-function work(ch) {
-  ch = parseInt(ch);
-  switch (ch) {
+function work(choice) {
+  choice = parseInt(choice);
+  switch (choice) {
     case 1:
       createFolder();
       break;
@@ -74,7 +74,11 @@ function createFolder() {
         pathValue = path.join(input, folderName);
         try {
           if (!fs.existsSync(pathValue)) {
-            fs.mkdirSync(pathValue, { recursive: true }, () => {});
+            fs.mkdirSync(pathValue, { recursive: true }, (err) => {
+              if (err) {
+                console.log(err);
+              }
+            });
           }
         } catch (err) {
           console.error(err);
@@ -86,7 +90,11 @@ function createFolder() {
         pathValue = path.join(homePath, folderName);
         try {
           if (!fs.existsSync(pathValue)) {
-            fs.mkdirSync(pathValue, { recursive: true }, () => {});
+            fs.mkdirSync(pathValue, { recursive: true }, (err) => {
+              if (err) {
+                console.log(err);
+              }
+            });
           }
         } catch (err) {
           console.error(err);
@@ -107,7 +115,11 @@ function createFile() {
         rl.question("Enter the content\n", function (content) {
           try {
             if (!fs.existsSync(pathValue)) {
-              fs.writeFile(pathValue, content, { flag: "a+" }, () => {});
+              fs.writeFile(pathValue, content, { flag: "a+" }, (err) => {
+                if (err) {
+                  console.log(err);
+                }
+              });
             }
           } catch (err) {
             console.log(err);
@@ -121,7 +133,11 @@ function createFile() {
         rl.question("Enter the content\n", function (content) {
           try {
             if (!fs.existsSync(pathValue)) {
-              fs.writeFile(pathValue, content, { flag: "a+" }, () => {});
+              fs.writeFile(pathValue, content, { flag: "a+" }, (err) => {
+                if (err) {
+                  console.log(err);
+                }
+              });
             }
           } catch (err) {
             console.log(err);
@@ -240,7 +256,11 @@ function renameFolder() {
         rl.question("Enter the new folderName\n", function (newfolderName) {
           try {
             if (fs.existsSync(pathValue)) {
-              fs.rename(pathValue, path.join(input, newfolderName), () => {});
+              fs.rename(pathValue, path.join(input, newfolderName), (err) => {
+                if (err) {
+                  console.log(err);
+                }
+              });
             }
           } catch (err) {
             console.log(err);
@@ -257,7 +277,11 @@ function renameFolder() {
               fs.rename(
                 pathValue,
                 path.join(homePath, newfolderName),
-                () => {}
+                (err) => {
+                  if (err) {
+                    console.log(err);
+                  }
+                }
               );
             }
           } catch (err) {
